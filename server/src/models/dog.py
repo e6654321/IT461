@@ -1,4 +1,3 @@
-from flask import g
 from db import Db
 
 class Dog():
@@ -30,8 +29,7 @@ class Dog():
 
     def get(self, filters=None):
         db = Db.get_instance()
-        if filters is not None:
-            if 'id' in filters:
+        if filters is not None and 'id' in filters:
                 sql = "SELECT * FROM dogs WHERE id = %s"
                 dog = db.fetchone(sql, filters['id'])
                 return dog
