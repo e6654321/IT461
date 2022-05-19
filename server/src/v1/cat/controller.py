@@ -34,7 +34,6 @@ class CatController(BaseController):
         if cat_id is not None:
             cat = self.check(cat_id, filters)
             if not isinstance(cat, dict):
-
                 return cat
             return jsonify(cat)
         filters['offset'] = int(request.args['offset']) if 'offset' in request.args else 0
