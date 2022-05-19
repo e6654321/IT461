@@ -12,6 +12,7 @@ services:
     container_name: "flask-app"
 
   db:
+    platform: linux/x86_64
     image: mysql:8.0.28
     ports:
       - "3366:3366"
