@@ -1,20 +1,20 @@
 import { useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
-const DogDelete = ({ getDogs }) => {
+export default function CatDelete({ getCats }) {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
-  const from = location.state?.from?.pathname || '/dogs';
-  const dog = location.state?.dog;
+  const from = location.state?.from?.pathname || '/cats';
+  const cat = location.state?.cat;
 
   const errRef = useRef();
   const [errMsg, setErrMsg] = useState('');
 
   const handleYes = async () => {
     try {
-      const response = await axiosPrivate.delete(`/dogs/${dog.id}`);
+      const response = await axiosPrivate.delete(`/cats/${cat.id}`);
       console.log(response);
     } catch (err) {
       if (!err?.response) {
@@ -27,7 +27,7 @@ const DogDelete = ({ getDogs }) => {
       errRef.current.focus();
     }
     navigate(from, { replace: true });
-    getDogs('/dogs/?limit=3&offset=0');
+    getCats('/cats/?limit=3&offset=0');
   };
 
   const handleNo = () => {
@@ -43,13 +43,11 @@ const DogDelete = ({ getDogs }) => {
       >
         {errMsg}
       </p>
-      <h1>Delete {dog.name}?</h1>
+      <h1>Delete {cat.name}?</h1>
       <div>
         <button onClick={handleYes}>Yes</button>
         <button onClick={handleNo}>No</button>
       </div>
     </section>
   );
-};
-
-export default DogDelete;
+}
